@@ -1,0 +1,7 @@
+spring:
+  application:
+    name: springcloud-customer
+  cloud:
+    nacos:
+      discovery:
+        server-addr: 192.168.102.1:8848
