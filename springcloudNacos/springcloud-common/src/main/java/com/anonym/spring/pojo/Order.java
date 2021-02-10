@@ -1,12 +1,15 @@
 package com.anonym.spring.pojo;
 
+import com.anonym.spring.model.orderPage.OrderStatusEnum;
+
 import java.io.Serializable;
 
 public class Order implements Serializable {
+
     private static final long serialVersionUID = 1L;
 
     private Long id;
-    private String orderStatus;
+    private OrderStatusEnum orderStatus;
     private Long menuId;
     private Double orderPrice;
     private String deliveryAddr;
@@ -25,11 +28,11 @@ public class Order implements Serializable {
         this.id = id;
     }
 
-    public String getOrderStatus() {
+    public OrderStatusEnum getOrderStatus() {
         return orderStatus;
     }
 
-    public void setOrderStatus(String orderStatus) {
+    public void setOrderStatus(OrderStatusEnum orderStatus) {
         this.orderStatus = orderStatus;
     }
 

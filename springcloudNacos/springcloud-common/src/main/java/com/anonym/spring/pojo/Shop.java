@@ -1,5 +1,7 @@
 package com.anonym.spring.pojo;
 
+import com.anonym.spring.model.orderPage.ShopIsExisEnum;
+
 import java.io.Serializable;
 
 public class Shop implements Serializable {
@@ -10,7 +12,7 @@ public class Shop implements Serializable {
     private String desc;
     private String shopAddr;
     private Double sendPrice;
-    private String type;
+    private ShopIsExisEnum type;
     private String createTime;
     private String updateTime;
     private String openTime;
@@ -60,11 +62,11 @@ public class Shop implements Serializable {
         this.sendPrice = sendPrice;
     }
 
-    public String getType() {
+    public ShopIsExisEnum getType() {
         return type;
     }
 
-    public void setType(String type) {
+    public void setType(ShopIsExisEnum type) {
         this.type = type;
     }
 

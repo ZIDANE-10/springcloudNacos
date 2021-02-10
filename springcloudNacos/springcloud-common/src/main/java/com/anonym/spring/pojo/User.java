@@ -1,7 +1,8 @@
 package com.anonym.spring.pojo;
 
-public class User {
+import com.anonym.spring.model.orderPage.UserTypeEnum;
 
+public class User {
     private static final long serialVersionUID = 1L;
 
     private Long id;
@@ -9,7 +10,7 @@ public class User {
     private String phone;
     private String email;
     private String password;
-    private String type;
+    private UserTypeEnum type;
     private String addr;
     private String createTime;
     private String updateTime;
@@ -58,11 +59,11 @@ public class User {
         this.password = password;
     }
 
-    public String getType() {
+    public UserTypeEnum getType() {
         return type;
     }
 
-    public void setType(String type) {
+    public void setType(UserTypeEnum type) {
         this.type = type;
     }
 
