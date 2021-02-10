@@ -1,16 +1,18 @@
 package com.anonym.spring.pojo;
 
-public class User {
+import java.io.Serializable;
+
+public class Menu implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
     private Long id;
     private String name;
-    private String phone;
-    private String email;
-    private String password;
+    private Double price;
+    private int sales;
     private String type;
-    private String addr;
+    private String imgAddr;
+    private String desc;
     private String createTime;
     private String updateTime;
 
@@ -34,28 +36,20 @@ public class User {
         this.name = name;
     }
 
-    public String getPhone() {
-        return phone;
+    public Double getPrice() {
+        return price;
     }
 
-    public void setPhone(String phone) {
-        this.phone = phone;
+    public void setPrice(Double price) {
+        this.price = price;
     }
 
-    public String getEmail() {
-        return email;
+    public int getSales() {
+        return sales;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
+    public void setSales(int sales) {
+        this.sales = sales;
     }
 
     public String getType() {
@@ -66,12 +60,20 @@ public class User {
         this.type = type;
     }
 
-    public String getAddr() {
-        return addr;
+    public String getImgAddr() {
+        return imgAddr;
     }
 
-    public void setAddr(String addr) {
-        this.addr = addr;
+    public void setImgAddr(String imgAddr) {
+        this.imgAddr = imgAddr;
+    }
+
+    public String getDesc() {
+        return desc;
+    }
+
+    public void setDesc(String desc) {
+        this.desc = desc;
     }
 
     public String getCreateTime() {

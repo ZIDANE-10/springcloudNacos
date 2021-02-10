@@ -19,7 +19,7 @@ drop table if exists userShopToShop;
 drop table if exists userToOrder;
 
 /*==============================================================*/
-/* Table: menu                                                  */
+/* Table: Menu                                                  */
 /*==============================================================*/
 create table menu 
 (
@@ -39,31 +39,31 @@ comment on column menu.id is
 'id';
 
 comment on column menu.name is 
-'²ËÃû';
+'ï¿½ï¿½ï¿½ï¿½';
 
 comment on column menu.price is 
-'²ËµÄ¼Û¸ñ';
+'ï¿½ËµÄ¼Û¸ï¿½';
 
 comment on column menu.sales is 
-'ÏúÁ¿';
+'ï¿½ï¿½ï¿½ï¿½';
 
 comment on column menu.type is 
-'²ËµÄÀàÐÍ';
+'ï¿½Ëµï¿½ï¿½ï¿½ï¿½ï¿½';
 
 comment on column menu.imgAddr is 
-'Í¼Æ¬µØÖ·';
+'Í¼Æ¬ï¿½ï¿½Ö·';
 
 comment on column menu."desc" is 
-'ÃèÊö';
+'ï¿½ï¿½ï¿½ï¿½';
 
 comment on column menu.createTime is 
-'´´½¨Ê±¼ä';
+'ï¿½ï¿½ï¿½ï¿½Ê±ï¿½ï¿½';
 
 comment on column menu.updateTime is 
-'ÐÞ¸ÄÊ±¼ä';
+'ï¿½Þ¸ï¿½Ê±ï¿½ï¿½';
 
 /*==============================================================*/
-/* Table: "order"                                               */
+/* Table: "Order"                                               */
 /*==============================================================*/
 create table "order" 
 (
@@ -81,25 +81,25 @@ comment on column "order".id is
 'id';
 
 comment on column "order".orderStatus is 
-'¶©µ¥×´Ì¬';
+'ï¿½ï¿½ï¿½ï¿½×´Ì¬';
 
 comment on column "order".menuId is 
-'²Ëµ¥id';
+'ï¿½Ëµï¿½id';
 
 comment on column "order".orderPrice is 
-'¶©µ¥½ð¶î';
+'ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½';
 
 comment on column "order".deliveryAddr is 
-'ÅäËÍµØÖ·';
+'ï¿½ï¿½ï¿½Íµï¿½Ö·';
 
 comment on column "order".createTime is 
-'¶©µ¥´´½¨Ê±¼ä';
+'ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê±ï¿½ï¿½';
 
 comment on column "order".updateTime is 
-'¶©µ¥ÐÞ¸ÄÊ±¼ä';
+'ï¿½ï¿½ï¿½ï¿½ï¿½Þ¸ï¿½Ê±ï¿½ï¿½';
 
 /*==============================================================*/
-/* Table: shop                                                  */
+/* Table: Shop                                                  */
 /*==============================================================*/
 create table shop 
 (
@@ -120,31 +120,31 @@ comment on column shop.id is
 'id';
 
 comment on column shop.shopName is 
-'µêÆÌÃû³Æ';
+'ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½';
 
 comment on column shop."desc" is 
-'ÃèÊö';
+'ï¿½ï¿½ï¿½ï¿½';
 
 comment on column shop.shopAddr is 
-'µêÆÌµØÖ·';
+'ï¿½ï¿½ï¿½Ìµï¿½Ö·';
 
 comment on column shop.sendPrice is 
-'ÆðËÍ¼Û¸ñ';
+'ï¿½ï¿½ï¿½Í¼Û¸ï¿½';
 
 comment on column shop.type is 
-'µêÆÌÊÇ·ñ´æÔÚ';
+'ï¿½ï¿½ï¿½ï¿½ï¿½Ç·ï¿½ï¿½ï¿½ï¿½';
 
 comment on column shop.createTime is 
-'´´½¨Ê±¼ä';
+'ï¿½ï¿½ï¿½ï¿½Ê±ï¿½ï¿½';
 
 comment on column shop.updateTime is 
-'ÐÞ¸ÄÊ±¼ä';
+'ï¿½Þ¸ï¿½Ê±ï¿½ï¿½';
 
 comment on column shop.openTime is 
-'µêÆÌ¿ªÆôÊ±¼ä';
+'ï¿½ï¿½ï¿½Ì¿ï¿½ï¿½ï¿½Ê±ï¿½ï¿½';
 
 comment on column shop.closeTime is 
-'µêÆÌ¹Ø±ÕÊ±¼ä';
+'ï¿½ï¿½ï¿½Ì¹Ø±ï¿½Ê±ï¿½ï¿½';
 
 /*==============================================================*/
 /* Table: "user"                                                */
@@ -167,28 +167,28 @@ comment on column "user".id is
 'id';
 
 comment on column "user".name is 
-'ÐÕÃû';
+'ï¿½ï¿½ï¿½ï¿½';
 
 comment on column "user".phone is 
-'ÊÖ»úºÅ';
+'ï¿½Ö»ï¿½ï¿½ï¿½';
 
 comment on column "user".email is 
-'ÓÊÏä';
+'ï¿½ï¿½ï¿½ï¿½';
 
 comment on column "user".password is 
-'ÓÊÏä';
+'ï¿½ï¿½ï¿½ï¿½';
 
 comment on column "user".type is 
-'ÀàÐÍ£¬ÓÐÉÌ¼ÒºÍÆÕÍ¨ÓÃ»§';
+'ï¿½ï¿½ï¿½Í£ï¿½ï¿½ï¿½ï¿½Ì¼Òºï¿½ï¿½ï¿½Í¨ï¿½Ã»ï¿½';
 
 comment on column "user".addr is 
-'µØÖ·';
+'ï¿½ï¿½Ö·';
 
 comment on column "user".createTime is 
-'´´½¨Ê±¼ä';
+'ï¿½ï¿½ï¿½ï¿½Ê±ï¿½ï¿½';
 
 comment on column "user".updateTime is 
-'ÐÞ¸ÄÊ±¼ä';
+'ï¿½Þ¸ï¿½Ê±ï¿½ï¿½';
 
 /*==============================================================*/
 /* Table: userShopToMenu                                        */
@@ -206,13 +206,13 @@ comment on column userShopToMenu.id is
 'id';
 
 comment on column userShopToMenu.userShopId is 
-'ÉÌ¼ÒÓÃ»§id';
+'ï¿½Ì¼ï¿½ï¿½Ã»ï¿½id';
 
 comment on column userShopToMenu.menuId is 
-'²Ëµ¥id';
+'ï¿½Ëµï¿½id';
 
 comment on column userShopToMenu.shopId is 
-'µêÆÌid';
+'ï¿½ï¿½ï¿½ï¿½id';
 
 /*==============================================================*/
 /* Table: userShopToShop                                        */
@@ -229,10 +229,10 @@ comment on column userShopToShop.id is
 'id';
 
 comment on column userShopToShop.shopUserId is 
-'ÉÌ¼ÒÓÃ»§id';
+'ï¿½Ì¼ï¿½ï¿½Ã»ï¿½id';
 
 comment on column userShopToShop.shopId is 
-'µêÆÌid';
+'ï¿½ï¿½ï¿½ï¿½id';
 
 /*==============================================================*/
 /* Table: userToOrder                                           */

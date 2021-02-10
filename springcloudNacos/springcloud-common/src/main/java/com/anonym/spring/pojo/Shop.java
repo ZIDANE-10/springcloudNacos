@@ -3,26 +3,29 @@ package com.anonym.spring.pojo;
 import java.io.Serializable;
 
 public class Shop implements Serializable {
-
     private static final long serialVersionUID = 1L;
 
-    private Long shopId;
+    private Long id;
     private String shopName;
-    private Double shopAllCount;
-    private Long shopUserId;
-    private Long otherLegalId;
-
+    private String desc;
+    private String shopAddr;
+    private Double sendPrice;
+    private String type;
+    private String createTime;
+    private String updateTime;
+    private String openTime;
+    private String closeTime;
 
     public static long getSerialVersionUID() {
         return serialVersionUID;
     }
 
-    public Long getShopId() {
-        return shopId;
+    public Long getId() {
+        return id;
     }
 
-    public void setShopId(Long shopId) {
-        this.shopId = shopId;
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getShopName() {
@@ -33,27 +36,67 @@ public class Shop implements Serializable {
         this.shopName = shopName;
     }
 
-    public Double getShopAllCount() {
-        return shopAllCount;
+    public String getDesc() {
+        return desc;
     }
 
-    public void setShopAllCount(Double shopAllCount) {
-        this.shopAllCount = shopAllCount;
+    public void setDesc(String desc) {
+        this.desc = desc;
     }
 
-    public Long getShopUserId() {
-        return shopUserId;
+    public String getShopAddr() {
+        return shopAddr;
     }
 
-    public void setShopUserId(Long shopUserId) {
-        this.shopUserId = shopUserId;
+    public void setShopAddr(String shopAddr) {
+        this.shopAddr = shopAddr;
     }
 
-    public Long getOtherLegalId() {
-        return otherLegalId;
+    public Double getSendPrice() {
+        return sendPrice;
     }
 
-    public void setOtherLegalId(Long otherLegalId) {
-        this.otherLegalId = otherLegalId;
+    public void setSendPrice(Double sendPrice) {
+        this.sendPrice = sendPrice;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
+
+    public String getCreateTime() {
+        return createTime;
+    }
+
+    public void setCreateTime(String createTime) {
+        this.createTime = createTime;
+    }
+
+    public String getUpdateTime() {
+        return updateTime;
+    }
+
+    public void setUpdateTime(String updateTime) {
+        this.updateTime = updateTime;
+    }
+
+    public String getOpenTime() {
+        return openTime;
+    }
+
+    public void setOpenTime(String openTime) {
+        this.openTime = openTime;
+    }
+
+    public String getCloseTime() {
+        return closeTime;
+    }
+
+    public void setCloseTime(String closeTime) {
+        this.closeTime = closeTime;
     }
 }
