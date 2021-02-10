@@ -3,31 +3,19 @@
 <mapper namespace="com.anonym.spring.mapper.UserMapper">
 
     <resultMap id="result" type="com.anonym.spring.pojo.User">
-        <id column="user_id" property="userId"></id>
-        <result column="user_name" property="userName"></result>
-        <result column="user_age" property="userAge"></result>
-        <result column="user_email" property="userEmail"></result>
-        <result column="user_username" property="userUsername"></result>
-        <result column="user_password" property="userPassword"></result>
-        <result column="user_phone" property="userPhone"></result>
+        <id column="id" property="id"></id>
+        <result column="name" property="name"></result>
+        <result column="phone" property="phone"></result>
+        <result column="email" property="email"></result>
+        <result column="type" property="type"></result>
+        <result column="addr" property="addr"></result>
+        <result column="createTime" property="createTime"></result>
+        <result column="updateTime" property="updateTime"></result>
     </resultMap>
 
-    <sql id="selectParam">
-        user_id,user_name,user_age,user_email,user_username,user_password,user_phone
-    </sql>
-    <insert id="insertUser" parameterType="com.anonym.spring.pojo.User">
-        insert into user values(#{userId},#{userName},#{userAge},#{userEmail},#{userUsername},#{userPassword},#{userPhone})
-    </insert>
-
-    <select id="selectExistsByParam" parameterType="com.anonym.spring.pojo.User" resultMap="result">
-        select <include refid="selectParam"/>
-        from user
-        <if test="userEmail != null">
-            where user_email = #{userEmail}
-        </if>
-
-        <if test="userUsername != null">
-            where user_username = #{userUsername}
-        </if>
+    <select id="verificationLongin" parameterType="com.anonym.spring.pojo.User" resultMap="result">
+        select id,name,phone,email,type,addr,createTime,updateTime from user
+        where phone = #{name}
     </select>
+
 </mapper>

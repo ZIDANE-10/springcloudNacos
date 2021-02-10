@@ -1,0 +1,49 @@
+package com.anonym.springcloudcustomer.controller;
+
+import com.anonym.spring.model.ResultSet;
+import com.anonym.spring.pojo.User;
+import com.anonym.springcloudcustomer.conf.ReflexMultiValueMap;
+import com.anonym.springcloudcustomer.service.UserOperationFeignClient;
+import org.apache.commons.lang.StringUtils;
+import org.springframework.util.LinkedMultiValueMap;
+import org.springframework.util.MultiValueMap;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.client.RestTemplate;
+
+import javax.annotation.Resource;
+import javax.servlet.http.HttpServletResponse;
+
+@RestController
+@RequestMapping("user")
+public class UserCustomerOperationController {
+
+    @Resource
+    private UserOperationFeignClient userOperationFeignClient;
+
+    @Resource
+    private RestTemplate restTemplate;
+
+    @Resource
+    private ReflexMultiValueMap reflexMultiValueMap;
+
+    @RequestMapping("/login")
+    public ResultSet login(User user,HttpServletResponse response){
+        response.setHeader("Access-Control-Allow-Origin", "*");
+        ResultSet resultSet = new ResultSet();
+
+        try {
+            if(StringUtils.isEmpty(user.getName()) || StringUtils.isEmpty(user.getPassword())){
+                resultSet.setRetCode("0");
+                resultSet.setRetVal("必传参数为空");
+                return resultSet;
+            }
+            //resultSet = userOperationFeignClient.login(user);
+            MultiValueMap<Object,Object> map = new LinkedMultiValueMap<>();
+            MultiValueMap<Object, Object> objectObjectMultiValueMap = reflexMultiValueMap.setObjToMap(map, user);
+            return restTemplate.postForEntity("http://springcloud-provider/provider/login",objectObjectMultiValueMap,ResultSet.class).getBody();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return resultSet;
+    }
+}
