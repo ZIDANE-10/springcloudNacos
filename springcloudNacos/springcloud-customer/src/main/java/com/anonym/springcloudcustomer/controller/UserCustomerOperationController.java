@@ -1,6 +1,7 @@
 package com.anonym.springcloudcustomer.controller;
 
 import com.anonym.spring.model.ResultSet;
+import com.anonym.spring.model.orderPage.UserTypeEnum;
 import com.anonym.spring.pojo.User;
 import com.anonym.springcloudcustomer.conf.ReflexMultiValueMap;
 import com.anonym.springcloudcustomer.service.UserOperationFeignClient;
@@ -53,7 +54,7 @@ public class UserCustomerOperationController {
         ResultSet resultSet = new ResultSet();
 
         try {
-            if (StringUtils.isEmpty(user.getPhone()) || StringUtils.isEmpty(user.getPassword()) || StringUtils.isEmpty(user.getEmail()) || StringUtils.isEmpty(user.getType().getValue())){
+            if (StringUtils.isEmpty(user.getPhone()) || StringUtils.isEmpty(user.getPassword()) || StringUtils.isEmpty(user.getEmail())){
                 resultSet.setRetCode("0");
                 resultSet.setRetVal("必传参数为空");
                 return resultSet;

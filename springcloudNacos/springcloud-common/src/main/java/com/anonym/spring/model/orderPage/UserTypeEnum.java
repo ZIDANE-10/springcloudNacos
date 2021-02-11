@@ -45,4 +45,14 @@ public enum UserTypeEnum {
     public static String getDes(String value){
         return map.get(value).getDescription();
     }
+
+    public static String getKey(String desc) {
+        UserTypeEnum[] array = UserTypeEnum.values();
+        for (UserTypeEnum e : array) {
+            if(e.getDescription().equals(desc)){
+                return e.getValue();
+            }
+        }
+        return null;
+    }
 }

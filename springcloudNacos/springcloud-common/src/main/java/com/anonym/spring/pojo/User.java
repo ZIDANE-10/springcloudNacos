@@ -13,7 +13,7 @@ public class User implements Serializable {
     private String phone;
     private String email;
     private String password;
-    private UserTypeEnum type;
+    private String type;
     private String addr;
     private String createTime;
     private String updateTime;
@@ -62,11 +62,11 @@ public class User implements Serializable {
         this.password = password;
     }
 
-    public UserTypeEnum getType() {
+    public String getType() {
         return type;
     }
 
-    public void setType(UserTypeEnum type) {
+    public void setType(String type) {
         this.type = type;
     }
 

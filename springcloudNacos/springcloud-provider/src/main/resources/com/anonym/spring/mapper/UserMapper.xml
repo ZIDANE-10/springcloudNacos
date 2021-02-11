@@ -23,7 +23,7 @@
     </sql>
 
     <insert id="registered" parameterType="com.anonym.spring.pojo.User">
-        insert user values (#{id},#{name},#{phone},#{email},#{type},#{addr},#{createTime},#{updateTime})
+        insert user(id,phone,email,type,createTime) values (#{id},#{phone},#{email},#{type},#{createTime})
     </insert>
 
 </mapper>

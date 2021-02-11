@@ -47,7 +47,7 @@ public class UserOperaionServiceImpl implements UserOperaionService {
         if(redisUtils.exists(user.getName())){
             String passwordSplit = (String) redisUtils.get(user.getName());
             String password = passwordSplit.split(",")[0];
-            if(MD5Util.encrypt(user.getPassword()).equals(MD5Util.encrypt(password))){
+            if(MD5Util.encrypt(user.getPassword()).equals(password)){
                 resultSet.setRetCode("1");
                 resultSet.setRetVal("");
                 resultSet.setDataRows(passwordSplit.split(",")[1]);
@@ -63,7 +63,7 @@ public class UserOperaionServiceImpl implements UserOperaionService {
                     /*证明密码一样*/
                     resultSet.setRetCode("1");
                     resultSet.setRetVal("");
-                    resultSet.setDataRows(emilUser.getType().getValue());
+                    resultSet.setDataRows(emilUser.getType());
                     return resultSet;
                 }else{
                     /*证明数据库中也没有此用户*/
