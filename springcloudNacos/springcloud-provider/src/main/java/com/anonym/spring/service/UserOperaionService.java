@@ -15,4 +15,6 @@ public interface UserOperaionService {
 
 
     ResultSet login(User user);
+
+    ResultSet registered(User user) throws Exception;
 }

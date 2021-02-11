@@ -1,8 +1,10 @@
 package com.anonym.spring.service;
 
 import com.anonym.spring.mapper.UserMapper;
+import com.anonym.spring.model.DateUtils;
 import com.anonym.spring.model.MD5Util;
 import com.anonym.spring.model.ResultSet;
+import com.anonym.spring.model.SnowflakeAlgorithm;
 import com.anonym.spring.pojo.User;
 import com.anonym.spring.util.RedisUtils;
 import org.apache.commons.lang.StringUtils;
@@ -12,6 +14,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 /**
  * @author 王培忠
@@ -70,5 +74,26 @@ public class UserOperaionServiceImpl implements UserOperaionService {
             }
         }
         return resultSet;
+    }
+
+    @Override
+    public ResultSet registered(User user) throws Exception {
+        ResultSet resultSet = new ResultSet();
+        redisUtils.set(user.getPhone(),MD5Util.encrypt(user.getPassword())+","+user.getType());
+        if (redisUtils.exists(user.getPhone())){
+            user.setId(SnowflakeAlgorithm.uniqueLong());
+            user.setCreateTime(DateUtils.getDate());
+              int temp = userMapper.registered(user);
+              if (temp < 1 ){
+                  throw new Exception("网络繁忙，请稍候重试");
+              }else {
+                  resultSet.setRetCode("1");
+                  resultSet.setRetVal("");
+                  resultSet.setDataRows(user);
+                  return resultSet;
+              }
+        }else {
+            throw new Exception("网络繁忙，请稍候重试");
+        }
     }
 }

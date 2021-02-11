@@ -18,4 +18,12 @@
         where phone = #{name}
     </select>
 
+    <sql id="userParam">
+        id,name,phone,email,type,addr,createTime,updateTime
+    </sql>
+
+    <insert id="registered" parameterType="com.anonym.spring.pojo.User">
+        insert user values (#{id},#{name},#{phone},#{email},#{type},#{addr},#{createTime},#{updateTime})
+    </insert>
+
 </mapper>

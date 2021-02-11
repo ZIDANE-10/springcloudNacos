@@ -24,6 +24,7 @@ public class UserProviderOperationController {
     @Resource
     private UserOperaionService userOperaionService;
 
+    /*登陆*/
     @RequestMapping("/login")
     public ResultSet login(User user){
 
@@ -36,7 +37,23 @@ public class UserProviderOperationController {
             e.printStackTrace();
             return resultSet;
         }
-
         return resultSet;
+    }
+
+    /*注册*/
+    @RequestMapping("/registered")
+    public ResultSet registered (User user){
+        ResultSet resultSet = new ResultSet();
+        try {
+            resultSet = userOperaionService.registered(user);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            resultSet.setRetCode("0");
+            resultSet.setRetVal("网络繁忙，请稍后再试");
+            e.printStackTrace();
+            return resultSet;
+        }
+        return resultSet ;
     }
 }

@@ -25,7 +25,7 @@ public class UserCustomerOperationController {
 
     @Resource
     private ReflexMultiValueMap reflexMultiValueMap;
-
+    /*登陆*/
     @RequestMapping("/login")
     public ResultSet login(User user,HttpServletResponse response){
         response.setHeader("Access-Control-Allow-Origin", "*");
@@ -41,6 +41,26 @@ public class UserCustomerOperationController {
             MultiValueMap<Object,Object> map = new LinkedMultiValueMap<>();
             MultiValueMap<Object, Object> objectObjectMultiValueMap = reflexMultiValueMap.setObjToMap(map, user);
             return restTemplate.postForEntity("http://springcloud-provider/provider/login",objectObjectMultiValueMap,ResultSet.class).getBody();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return resultSet;
+    }
+    /*注册*/
+    @RequestMapping(value = "/registered",method = RequestMethod.POST)
+    public ResultSet registered(User user ,HttpServletResponse response){
+        response.setHeader("Access-Control-Allow-Origin", "*");
+        ResultSet resultSet = new ResultSet();
+
+        try {
+            if (StringUtils.isEmpty(user.getPhone()) || StringUtils.isEmpty(user.getPassword()) || StringUtils.isEmpty(user.getEmail()) || StringUtils.isEmpty(user.getType().getValue())){
+                resultSet.setRetCode("0");
+                resultSet.setRetVal("必传参数为空");
+                return resultSet;
+            }
+            MultiValueMap<Object,Object> map = new LinkedMultiValueMap<>();
+            MultiValueMap<Object, Object> objectObjectMultiValueMap = reflexMultiValueMap.setObjToMap(map, user);
+            return restTemplate.postForEntity("http://springcloud-provider/provider/registered",objectObjectMultiValueMap,ResultSet.class).getBody() ;
         } catch (Exception e) {
             e.printStackTrace();
         }
