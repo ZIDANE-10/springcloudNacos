@@ -2,16 +2,15 @@ package com.anonym.spring.util;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.data.redis.RedisProperties;
 import org.springframework.data.redis.core.*;
-import org.springframework.stereotype.Service;
+import org.springframework.stereotype.Component;
 
 import java.io.Serializable;
 import java.util.List;
 import java.util.Set;
 import java.util.concurrent.TimeUnit;
 
-@Service
+@Component
 public class RedisUtils {
     @Autowired
     private RedisTemplate redisTemplate;

@@ -43,14 +43,22 @@ public class UserOperaionServiceImpl implements UserOperaionService {
     public ResultSet login(User user){
         ResultSet resultSet = new ResultSet();
         redisTemplate.setValueSerializer(new StringRedisSerializer());
+        User returnUser = new User();
         /*redis中如果存在此key，比较密码*/
         if(redisUtils.exists(user.getName())){
             String passwordSplit = (String) redisUtils.get(user.getName());
             String password = passwordSplit.split(",")[0];
-            if(MD5Util.encrypt(user.getPassword()).equals(password)){
+            String md5password = MD5Util.encrypt(user.getPassword());
+            returnUser.setPhone(user.getName());
+            returnUser.setType(passwordSplit.split(",")[1]);
+            if(md5password.equals(password)){
                 resultSet.setRetCode("1");
                 resultSet.setRetVal("");
-                resultSet.setDataRows(passwordSplit.split(",")[1]);
+                resultSet.setDataRows(returnUser);
+                return resultSet;
+            }else{
+                resultSet.setRetCode("0");
+                resultSet.setRetVal("用户名或密码错误");
                 return resultSet;
             }
         }else{
@@ -63,7 +71,9 @@ public class UserOperaionServiceImpl implements UserOperaionService {
                     /*证明密码一样*/
                     resultSet.setRetCode("1");
                     resultSet.setRetVal("");
-                    resultSet.setDataRows(emilUser.getType());
+                    returnUser.setPhone(emilUser.getPhone());
+                    returnUser.setType(emilUser.getType());
+                    resultSet.setDataRows(returnUser);
                     return resultSet;
                 }else{
                     /*证明数据库中也没有此用户*/

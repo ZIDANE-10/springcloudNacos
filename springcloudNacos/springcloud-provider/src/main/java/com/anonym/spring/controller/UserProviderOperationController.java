@@ -3,6 +3,8 @@ package com.anonym.spring.controller;
 import com.anonym.spring.model.ResultSet;
 import com.anonym.spring.pojo.User;
 import com.anonym.spring.service.UserOperaionService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -21,6 +23,8 @@ import javax.annotation.Resource;
 @RequestMapping("provider")
 public class UserProviderOperationController {
 
+    private static Logger logger = LoggerFactory.getLogger(UserProviderOperationController.class);
+
     @Resource
     private UserOperaionService userOperaionService;
 
@@ -34,7 +38,7 @@ public class UserProviderOperationController {
         } catch (Exception e) {
             resultSet.setRetCode("0");
             resultSet.setRetVal("网络繁忙，请稍后再试");
-            e.printStackTrace();
+            logger.error("****",e);
             return resultSet;
         }
         return resultSet;
