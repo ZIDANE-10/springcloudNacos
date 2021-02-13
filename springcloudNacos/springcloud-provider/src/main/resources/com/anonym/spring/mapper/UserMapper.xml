@@ -15,8 +15,8 @@
     </resultMap>
 
     <select id="verificationLongin" parameterType="com.anonym.spring.pojo.User" resultMap="result">
-        select id,name,phone,email,type,addr,createTime,updateTime from user
-        where phone = #{name}
+        select id,name,phone,email,password,type,addr,createTime,updateTime from user
+        where email = #{name}
     </select>
 
     <sql id="userParam">
