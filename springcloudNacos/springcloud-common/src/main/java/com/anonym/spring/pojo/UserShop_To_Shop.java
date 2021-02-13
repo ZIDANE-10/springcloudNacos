@@ -1,9 +1,12 @@
 package com.anonym.spring.pojo;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import java.io.Serializable;
 
 public class UserShop_To_Shop implements Serializable {
     private static final long serialVersionUID = 1L;
+    @JsonFormat(shape = JsonFormat.Shape.STRING)
     private Long id;
     private Long shopUserId;
     private Long shopId;

@@ -1,5 +1,8 @@
 package com.anonym.spring.service;
 
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONArray;
+import com.alibaba.fastjson.JSONObject;
 import com.anonym.spring.mapper.UserMapper;
 import com.anonym.spring.model.DateUtils;
 import com.anonym.spring.model.MD5Util;
@@ -15,6 +18,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
+import java.io.*;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -41,13 +45,13 @@ public class UserOperaionServiceImpl implements UserOperaionService {
 
     @Transactional
     @Override
-    public ResultSet login(User user){
+    public ResultSet login(User user) throws IOException, ClassNotFoundException {
         ResultSet resultSet = new ResultSet();
         redisTemplate.setValueSerializer(new StringRedisSerializer());
         User returnUser = new User();
         /*redis中如果存在此key，比较密码*/
         if(redisUtils.exists(user.getName())){
-            String passwordSplit = (String) redisUtils.get(user.getName());
+            /*String passwordSplit = (String) redisUtils.get(user.getName());
             String password = passwordSplit.split(",")[0];
             String md5password = MD5Util.encrypt(user.getPassword());
             returnUser.setPhone(user.getName());
@@ -56,6 +60,17 @@ public class UserOperaionServiceImpl implements UserOperaionService {
                 resultSet.setRetCode("1");
                 resultSet.setRetVal("");
                 resultSet.setDataRows(returnUser);
+                return resultSet;
+            }else{
+                resultSet.setRetCode("0");
+                resultSet.setRetVal("用户名或密码错误");
+                return resultSet;
+            }*/
+            User redisUser = (User) redisUtils.getObject(user.getName());
+            if(MD5Util.encrypt(user.getPassword()).equals(redisUser.getPassword())){
+                resultSet.setRetCode("1");
+                resultSet.setRetVal("");
+                resultSet.setDataRows(redisUser);
                 return resultSet;
             }else{
                 resultSet.setRetCode("0");
@@ -72,9 +87,7 @@ public class UserOperaionServiceImpl implements UserOperaionService {
                     /*证明密码一样*/
                     resultSet.setRetCode("1");
                     resultSet.setRetVal("");
-                    returnUser.setPhone(emilUser.getPhone());
-                    returnUser.setType(emilUser.getType());
-                    resultSet.setDataRows(returnUser);
+                    resultSet.setDataRows(emilUser);
                     return resultSet;
                 }else{
                     /*证明数据库中也没有此用户*/
@@ -92,11 +105,12 @@ public class UserOperaionServiceImpl implements UserOperaionService {
         ResultSet resultSet = new ResultSet();
         /*先去数据库查询一下有没有此用户*/
         User userExists = userMapper.isExistsUser(user);
+        user.setId(SnowflakeAlgorithm.uniqueLong());
         /*存入数据库或redis之前需要判断*/
         if(!redisUtils.exists(user.getPhone()) & userExists == null){
-            redisUtils.set(user.getPhone(),MD5Util.encrypt(user.getPassword())+","+user.getType());
+            user.setPassword(MD5Util.encrypt(user.getPassword()));
+            redisUtils.set(user.getPhone(),user);
             if (redisUtils.exists(user.getPhone())){
-                user.setId(SnowflakeAlgorithm.uniqueLong());
                 user.setCreateTime(DateUtils.getDate());
                 user.setPassword(MD5Util.encrypt(user.getPassword()));
                 int temp = userMapper.registered(user);
@@ -145,5 +159,20 @@ public class UserOperaionServiceImpl implements UserOperaionService {
         }
         resultSet.setRetCode("1");
         return resultSet;
+    }
+
+    @Override
+    public ResultSet selectUserById(Long id) throws Exception {
+        ResultSet resultSet = new ResultSet();
+        /*根据id查单条*/
+        User user = userMapper.selectUserById(id);
+        if(user != null){
+            resultSet.setRetCode("1");
+            resultSet.setRetVal("");
+            resultSet.setDataRows(user);
+            return resultSet;
+        }else{
+            throw new Exception("网络繁忙，请稍后再试");
+        }
     }
 }

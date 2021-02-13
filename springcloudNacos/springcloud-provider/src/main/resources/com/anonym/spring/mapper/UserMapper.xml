@@ -42,4 +42,9 @@
             phone = #{phone}
         </if>
     </select>
+
+    <select id="selectUserById" resultMap="result">
+        select id,name,phone,email,password,type,addr,createTime,updateTime from user
+        where id = #{id}
+    </select>
 </mapper>

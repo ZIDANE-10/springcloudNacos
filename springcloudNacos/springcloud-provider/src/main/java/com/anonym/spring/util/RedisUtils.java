@@ -1,11 +1,15 @@
 package com.anonym.spring.util;
 
 
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
+import com.anonym.spring.pojo.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.*;
 import org.springframework.stereotype.Component;
 
-import java.io.Serializable;
+import javax.swing.*;
+import java.io.*;
 import java.util.List;
 import java.util.Set;
 import java.util.concurrent.TimeUnit;
@@ -158,7 +162,6 @@ public class RedisUtils {
      * 有序集合添加
      * @param key
      * @param value
-     * @param scoure
      */
     public void zAdd(String key,Set<ZSetOperations.TypedTuple<Object>> value){
         ZSetOperations<String, Object> zset = redisTemplate.opsForZSet();
@@ -179,5 +182,12 @@ public class RedisUtils {
     public Set<Object> range(String key, long start, long end){
         ZSetOperations<String, Object> zset = redisTemplate.opsForZSet();
         return zset.range(key, start,end);
+    }
+    public Object getObject(String key){
+        Object result = null;
+        ValueOperations<Serializable, Object> operations = redisTemplate.opsForValue();
+        JSONObject jsonObject = JSON.parseObject(operations.get(key).toString());
+        result = jsonObject.toJavaObject(User.class);
+        return result;
     }
 }

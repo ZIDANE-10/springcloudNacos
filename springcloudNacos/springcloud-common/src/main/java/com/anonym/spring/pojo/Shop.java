@@ -1,12 +1,14 @@
 package com.anonym.spring.pojo;
 
 import com.anonym.spring.model.orderPage.ShopIsExisEnum;
+import com.fasterxml.jackson.annotation.JsonFormat;
 
 import java.io.Serializable;
 
 public class Shop implements Serializable {
     private static final long serialVersionUID = 1L;
 
+    @JsonFormat(shape = JsonFormat.Shape.STRING)
     private Long id;
     private String shopName;
     private String desc;

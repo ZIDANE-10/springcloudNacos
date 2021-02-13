@@ -14,4 +14,6 @@ public interface UserMapper {
     User isExistsUser(User user);
 
     User verificationPhoneOrEmail(User user);
+
+    User selectUserById(Long id);
 }

@@ -1,6 +1,7 @@
 package com.anonym.spring.pojo;
 
 import com.anonym.spring.model.orderPage.OrderStatusEnum;
+import com.fasterxml.jackson.annotation.JsonFormat;
 
 import java.io.Serializable;
 
@@ -8,6 +9,7 @@ public class Order implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
+    @JsonFormat(shape = JsonFormat.Shape.STRING)
     private Long id;
     private OrderStatusEnum orderStatus;
     private Long menuId;

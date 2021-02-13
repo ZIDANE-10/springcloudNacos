@@ -1,11 +1,14 @@
 package com.anonym.spring.pojo;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import java.io.Serializable;
 
 public class Menu implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
+    @JsonFormat(shape = JsonFormat.Shape.STRING)
     private Long id;
     private String name;
     private Double price;

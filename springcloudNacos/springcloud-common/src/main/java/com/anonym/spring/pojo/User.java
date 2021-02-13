@@ -1,6 +1,7 @@
 package com.anonym.spring.pojo;
 
 import com.anonym.spring.model.orderPage.UserTypeEnum;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import java.io.Serializable;
@@ -8,6 +9,7 @@ import java.io.Serializable;
 public class User implements Serializable {
 
     private static final long serialVersionUID = 2346958391108723866L;
+    @JsonFormat(shape = JsonFormat.Shape.STRING)
     private Long id;
     private String name;
     private String phone;

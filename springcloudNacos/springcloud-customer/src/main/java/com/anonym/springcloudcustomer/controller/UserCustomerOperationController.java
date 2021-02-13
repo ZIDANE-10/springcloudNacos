@@ -87,4 +87,18 @@ public class UserCustomerOperationController {
         }
         return resultSet;
     }
+
+    @RequestMapping("/selectUserById")
+    public ResultSet selectUserById(Long id,HttpServletResponse response){
+        ResultSet resultSet = new ResultSet();
+        response.setHeader("Access-Control-Allow-Origin", "*");
+        try {
+            MultiValueMap<Object,Object> map = new LinkedMultiValueMap<>();
+            map.add("id",id);
+            return restTemplate.postForEntity("http://springcloud-provider/provider/selectUserById",map,ResultSet.class).getBody();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return resultSet;
+    }
 }

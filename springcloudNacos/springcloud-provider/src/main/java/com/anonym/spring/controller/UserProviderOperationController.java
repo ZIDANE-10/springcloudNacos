@@ -74,4 +74,18 @@ public class UserProviderOperationController {
 
         return resultSet;
     }
+
+    @RequestMapping("/selectUserById")
+    public ResultSet selectUserById(Long id){
+        ResultSet resultSet = new ResultSet();
+
+        try {
+            resultSet = userOperaionService.selectUserById(id);
+        } catch (Exception e) {
+            resultSet.setRetCode("0");
+            resultSet.setRetVal("网络繁忙，请稍后再试");
+            return resultSet;
+        }
+        return resultSet;
+    }
 }
