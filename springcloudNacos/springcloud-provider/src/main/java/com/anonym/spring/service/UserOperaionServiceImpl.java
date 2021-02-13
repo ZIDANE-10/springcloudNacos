@@ -7,6 +7,7 @@ import com.anonym.spring.model.ResultSet;
 import com.anonym.spring.model.SnowflakeAlgorithm;
 import com.anonym.spring.pojo.User;
 import com.anonym.spring.util.RedisUtils;
+import com.sun.org.apache.bcel.internal.generic.NEW;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.serializer.StringRedisSerializer;
@@ -67,7 +68,7 @@ public class UserOperaionServiceImpl implements UserOperaionService {
             User emilUser = userMapper.verificationLongin(user);
             if(emilUser != null){
                 /*证明使用了邮箱登录*/
-                if(MD5Util.encrypt(user.getPassword()).equals(MD5Util.encrypt(emilUser.getPassword()))){
+                if(MD5Util.encrypt(user.getPassword()).equals(emilUser.getPassword())){
                     /*证明密码一样*/
                     resultSet.setRetCode("1");
                     resultSet.setRetVal("");
@@ -89,21 +90,60 @@ public class UserOperaionServiceImpl implements UserOperaionService {
     @Override
     public ResultSet registered(User user) throws Exception {
         ResultSet resultSet = new ResultSet();
-        redisUtils.set(user.getPhone(),MD5Util.encrypt(user.getPassword())+","+user.getType());
-        if (redisUtils.exists(user.getPhone())){
-            user.setId(SnowflakeAlgorithm.uniqueLong());
-            user.setCreateTime(DateUtils.getDate());
-              int temp = userMapper.registered(user);
-              if (temp < 1 ){
-                  throw new Exception("网络繁忙，请稍候重试");
-              }else {
-                  resultSet.setRetCode("1");
-                  resultSet.setRetVal("");
-                  resultSet.setDataRows(user);
-                  return resultSet;
-              }
-        }else {
-            throw new Exception("网络繁忙，请稍候重试");
+        /*先去数据库查询一下有没有此用户*/
+        User userExists = userMapper.isExistsUser(user);
+        /*存入数据库或redis之前需要判断*/
+        if(!redisUtils.exists(user.getPhone()) & userExists == null){
+            redisUtils.set(user.getPhone(),MD5Util.encrypt(user.getPassword())+","+user.getType());
+            if (redisUtils.exists(user.getPhone())){
+                user.setId(SnowflakeAlgorithm.uniqueLong());
+                user.setCreateTime(DateUtils.getDate());
+                user.setPassword(MD5Util.encrypt(user.getPassword()));
+                int temp = userMapper.registered(user);
+                if (temp < 1 ){
+                    throw new Exception("网络繁忙，请稍候重试");
+                }else {
+                    resultSet.setRetCode("1");
+                    resultSet.setRetVal("");
+                    resultSet.setDataRows(user);
+                    return resultSet;
+                }
+            }else {
+                throw new Exception("网络繁忙，请稍候重试");
+            }
+        }else{
+            resultSet.setRetCode("0");
+            resultSet.setRetVal("用户名或邮箱已存在");
+            return resultSet;
         }
+    }
+
+    @Override
+    public ResultSet verificationEmailOrphone(User user) {
+        ResultSet resultSet = new ResultSet();
+        if(!StringUtils.isEmpty(user.getPhone())){
+            if(redisUtils.exists(user.getPhone())){
+                resultSet.setRetCode("0");
+                resultSet.setRetVal("手机号已存在");
+                return resultSet;
+            }else{
+                User userPhone = userMapper.verificationPhoneOrEmail(user);
+                if(userPhone != null){
+                    resultSet.setRetCode("0");
+                    resultSet.setRetVal("手机号已存在");
+                    return resultSet;
+                }
+            }
+        } else if(!StringUtils.isEmpty(user.getEmail())){
+            /*去数据库查找相关邮箱*/
+            User userEmail = userMapper.verificationPhoneOrEmail(user);
+            if(userEmail != null){
+                resultSet.setRetCode("0");
+                resultSet.setRetVal("邮箱已存在");
+                return resultSet;
+            }
+        }
+        resultSet.setRetCode("1");
+        return resultSet;
     }
 }

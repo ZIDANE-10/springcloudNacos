@@ -67,4 +67,24 @@ public class UserCustomerOperationController {
         }
         return resultSet;
     }
+
+    @RequestMapping("/verificationEmailOrphone")
+    public ResultSet verificationEmailOrphone(User user,HttpServletResponse response){
+        ResultSet resultSet = new ResultSet();
+        response.setHeader("Access-Control-Allow-Origin", "*");
+        try {
+            if(StringUtils.isEmpty(user.getPhone()) & StringUtils.isEmpty(user.getEmail())){
+                /*两者都为空证明前端有问题*/
+                resultSet.setRetCode("0");
+                resultSet.setRetVal("必传参数为空");
+                return resultSet;
+            }
+            MultiValueMap<Object,Object> map = new LinkedMultiValueMap<>();
+            MultiValueMap<Object, Object> objectObjectMultiValueMap = reflexMultiValueMap.setObjToMap(map, user);
+            return restTemplate.postForEntity("http://springcloud-provider/provider/verificationEmailOrphone",objectObjectMultiValueMap,ResultSet.class).getBody() ;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return resultSet;
+    }
 }

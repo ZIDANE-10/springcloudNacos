@@ -10,4 +10,8 @@ public interface UserMapper {
     User verificationLongin(User user);
 
     int registered(User user);
+
+    User isExistsUser(User user);
+
+    User verificationPhoneOrEmail(User user);
 }

@@ -7,6 +7,7 @@
         <result column="name" property="name"></result>
         <result column="phone" property="phone"></result>
         <result column="email" property="email"></result>
+        <result column="password" property="password"></result>
         <result column="type" property="type"></result>
         <result column="addr" property="addr"></result>
         <result column="createTime" property="createTime"></result>
@@ -23,7 +24,22 @@
     </sql>
 
     <insert id="registered" parameterType="com.anonym.spring.pojo.User">
-        insert user(id,phone,email,type,createTime) values (#{id},#{phone},#{email},#{type},#{createTime})
+        insert user(id,phone,email,password,type,createTime) values (#{id},#{phone},#{email},#{password},#{type},#{createTime})
     </insert>
 
+    <select id="isExistsUser" parameterType="com.anonym.spring.pojo.User" resultMap="result">
+        select id,name,phone,email,type,addr,createTime,updateTime from user
+        where phone = #{phone} or email = #{email}
+    </select>
+
+    <select id="verificationPhoneOrEmail" parameterType="com.anonym.spring.pojo.User" resultMap="result">
+        select id,name,phone,email,type,addr,createTime,updateTime from user
+        where
+        <if test="email != null and email != ''">
+            email = #{email}
+        </if>
+        <if test="phone != null and phone != ''">
+            phone = #{phone}
+        </if>
+    </select>
 </mapper>

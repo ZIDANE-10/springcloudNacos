@@ -3,6 +3,7 @@ package com.anonym.spring.controller;
 import com.anonym.spring.model.ResultSet;
 import com.anonym.spring.pojo.User;
 import com.anonym.spring.service.UserOperaionService;
+import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -20,7 +21,7 @@ import javax.annotation.Resource;
  * @since JDK 1.8
  */
 @RestController
-@RequestMapping("provider")
+@RequestMapping("/provider")
 public class UserProviderOperationController {
 
     private static Logger logger = LoggerFactory.getLogger(UserProviderOperationController.class);
@@ -59,5 +60,18 @@ public class UserProviderOperationController {
             return resultSet;
         }
         return resultSet ;
+    }
+
+    @RequestMapping("/verificationEmailOrphone")
+    public ResultSet verificationEmailOrphone(User user){
+
+        ResultSet resultSet = new ResultSet();
+        try {
+            resultSet = userOperaionService.verificationEmailOrphone(user);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return resultSet;
     }
 }
