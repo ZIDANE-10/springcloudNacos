@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.anonym.spring.mapper.ShopMapper">
+
+    <resultMap id="result" type="com.anonym.spring.pojo.Shop">
+        <id column="id" property="id"></id>
+        <result column="shopName" property="shopName"></result>
+        <result column="desc" property="desc"></result>
+        <result column="shopAddr" property="shopAddr"></result>
+        <result column="sendPrice" property="sendPrice"></result>
+        <result column="type" property="type"></result>
+        <result column="createTime" property="createTime"></result>
+        <result column="updateTime" property="updateTime"></result>
+    </resultMap>
+
+    <select id="selectShop" resultMap="result">
+        select id,shopName,`desc`,shopAddr,sendPrice,`type`,createTime,updateTime
+        from shop
+        where type = "open"
+    </select>
+</mapper>
