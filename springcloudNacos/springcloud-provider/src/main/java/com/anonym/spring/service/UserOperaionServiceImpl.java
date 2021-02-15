@@ -49,6 +49,7 @@ public class UserOperaionServiceImpl implements UserOperaionService {
         ResultSet resultSet = new ResultSet();
         redisTemplate.setValueSerializer(new StringRedisSerializer());
         User returnUser = new User();
+        String password = MD5Util.encrypt(user.getPassword());
         /*redis中如果存在此key，比较密码*/
         if(redisUtils.exists(user.getName())){
             /*String passwordSplit = (String) redisUtils.get(user.getName());
@@ -67,7 +68,7 @@ public class UserOperaionServiceImpl implements UserOperaionService {
                 return resultSet;
             }*/
             User redisUser = (User) redisUtils.getObject(user.getName());
-            if(MD5Util.encrypt(user.getPassword()).equals(redisUser.getPassword())){
+            if(password.equals(redisUser.getPassword())){
                 resultSet.setRetCode("1");
                 resultSet.setRetVal("");
                 resultSet.setDataRows(redisUser);
@@ -83,7 +84,8 @@ public class UserOperaionServiceImpl implements UserOperaionService {
             User emilUser = userMapper.verificationLongin(user);
             if(emilUser != null){
                 /*证明使用了邮箱登录*/
-                if(MD5Util.encrypt(user.getPassword()).equals(emilUser.getPassword())){
+
+                if(password.equals(emilUser.getPassword())){
                     /*证明密码一样*/
                     resultSet.setRetCode("1");
                     resultSet.setRetVal("");
@@ -95,9 +97,13 @@ public class UserOperaionServiceImpl implements UserOperaionService {
                     resultSet.setRetVal("用户名或密码错误");
                     return resultSet;
                 }
+            }else{
+                /*证明数据库中也没有此用户*/
+                resultSet.setRetCode("0");
+                resultSet.setRetVal("用户名或密码错误");
+                return resultSet;
             }
         }
-        return resultSet;
     }
 
     @Override
@@ -112,7 +118,6 @@ public class UserOperaionServiceImpl implements UserOperaionService {
             redisUtils.set(user.getPhone(),user);
             if (redisUtils.exists(user.getPhone())){
                 user.setCreateTime(DateUtils.getDate());
-                user.setPassword(MD5Util.encrypt(user.getPassword()));
                 int temp = userMapper.registered(user);
                 if (temp < 1 ){
                     throw new Exception("网络繁忙，请稍候重试");
