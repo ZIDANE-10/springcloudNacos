@@ -19,6 +19,7 @@ public class Shop implements Serializable {
     private String updateTime;
     private String openTime;
     private String closeTime;
+    private int orderTotal;
 
     public static long getSerialVersionUID() {
         return serialVersionUID;
@@ -30,6 +31,14 @@ public class Shop implements Serializable {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public int getOrderTotal() {
+        return orderTotal;
+    }
+
+    public void setOrderTotal(int orderTotal) {
+        this.orderTotal = orderTotal;
     }
 
     public String getShopName() {

@@ -34,6 +34,7 @@ public class ShopOperationServiceImpl implements ShopOperationService{
         ResultSet resultSet = new ResultSet();
         /*必须是普通用户才能查询此接口*/
         if(type.equals("OrdinaryUser")){
+            /*查询店铺信息*/
             List<Shop> shopList = shopMapper.selectShop();
             if(shopList.isEmpty()){
                 /*为空*/
@@ -51,8 +52,8 @@ public class ShopOperationServiceImpl implements ShopOperationService{
             String shopId = userShopToShopMapper.selectIsExtis(userId);
             if(StringUtils.isEmpty(shopId)){
                 /*证明没有店铺*/
-                resultSet.setRetCode("1");
-                resultSet.setRetVal("");
+                resultSet.setRetCode("0");
+                resultSet.setRetVal("您还没有店铺哦！快去创建一个吧");
                 return resultSet;
             }else{
                 /*证明有值,查询菜品*/

@@ -11,10 +11,13 @@
         <result column="type" property="type"></result>
         <result column="createTime" property="createTime"></result>
         <result column="updateTime" property="updateTime"></result>
+        <result column="openTime" property="updateTime"></result>
+        <result column="closeTime" property="updateTime"></result>
+        <result column="orderTotal" property="orderTotal"></result>
     </resultMap>
 
     <select id="selectShop" resultMap="result">
-        select id,shopName,`desc`,shopAddr,sendPrice,`type`,createTime,updateTime
+        select id,shopName,`desc`,shopAddr,sendPrice,`type`,createTime,updateTime,openTime,closeTime,orderTotal
         from shop
         where type = "open"
     </select>
