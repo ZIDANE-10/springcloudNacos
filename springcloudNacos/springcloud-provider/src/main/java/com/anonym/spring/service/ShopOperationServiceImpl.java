@@ -69,6 +69,10 @@ public class ShopOperationServiceImpl implements ShopOperationService{
                         menu = menuMapper.selectMenuById(menuId);
                         menuList.add(menu);
                     }
+                }else{
+                    resultSet.setRetCode("0");
+                    resultSet.setRetVal("您还没有菜品哦快去添加吧");
+                    return resultSet;
                 }
                 resultSet.setRetCode("1");
                 resultSet.setRetVal("");

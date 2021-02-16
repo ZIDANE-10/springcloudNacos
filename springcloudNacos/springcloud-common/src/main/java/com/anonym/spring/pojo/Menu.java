@@ -18,18 +18,9 @@ public class Menu implements Serializable {
     private String desc;
     private String createTime;
     private String updateTime;
-    private int menuTotal;
 
     public static long getSerialVersionUID() {
         return serialVersionUID;
-    }
-
-    public int getMenuTotal() {
-        return menuTotal;
-    }
-
-    public void setMenuTotal(int menuTotal) {
-        this.menuTotal = menuTotal;
     }
 
     public Long getId() {
