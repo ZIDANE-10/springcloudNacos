@@ -1,6 +1,7 @@
 package com.anonym.springcloudcustomer.controller;
 
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletResponse;
@@ -9,8 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 public class TestVueController {
 
     @RequestMapping("/testVue")
-    public String testVue(String firstName, HttpServletResponse response){
-        response.setHeader("Access-Control-Allow-Origin", "*");
+    public String testVue(@RequestParam(value = "firstName",required = true) String firstName, HttpServletResponse response){
         return firstName;
     }
 }
