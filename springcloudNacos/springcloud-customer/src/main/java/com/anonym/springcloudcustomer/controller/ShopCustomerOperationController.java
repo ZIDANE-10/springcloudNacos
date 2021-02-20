@@ -23,8 +23,7 @@ public class ShopCustomerOperationController {
     private ReflexMultiValueMap reflexMultiValueMap;
 
     @RequestMapping("/selectShop")
-    public ResultSet selectShop(String type, HttpServletResponse response,Long userId){
-        response.setHeader("Access-Control-Allow-Origin", "*");
+    public ResultSet selectShop(String type,Long userId){
         ResultSet resultSet = new ResultSet();
         try {
             if(StringUtils.isEmpty(type)){

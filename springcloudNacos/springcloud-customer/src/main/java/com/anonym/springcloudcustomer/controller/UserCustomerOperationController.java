@@ -28,8 +28,8 @@ public class UserCustomerOperationController {
     private ReflexMultiValueMap reflexMultiValueMap;
     /*登陆*/
     @RequestMapping("/login")
-    public ResultSet login(User user,HttpServletResponse response){
-        response.setHeader("Access-Control-Allow-Origin", "*");
+    public ResultSet login(User user){
+//        response.setHeader("Access-Control-Allow-Origin", "*");
         ResultSet resultSet = new ResultSet();
 
         try {
@@ -49,8 +49,7 @@ public class UserCustomerOperationController {
     }
     /*注册*/
     @RequestMapping(value = "/registered",method = RequestMethod.POST)
-    public ResultSet registered(User user ,HttpServletResponse response){
-        response.setHeader("Access-Control-Allow-Origin", "*");
+    public ResultSet registered(User user){
         ResultSet resultSet = new ResultSet();
 
         try {
@@ -69,9 +68,8 @@ public class UserCustomerOperationController {
     }
 
     @RequestMapping("/verificationEmailOrphone")
-    public ResultSet verificationEmailOrphone(User user,HttpServletResponse response){
+    public ResultSet verificationEmailOrphone(User user){
         ResultSet resultSet = new ResultSet();
-        response.setHeader("Access-Control-Allow-Origin", "*");
         try {
             if(StringUtils.isEmpty(user.getPhone()) & StringUtils.isEmpty(user.getEmail())){
                 /*两者都为空证明前端有问题*/
@@ -89,9 +87,8 @@ public class UserCustomerOperationController {
     }
 
     @RequestMapping("/selectUserById")
-    public ResultSet selectUserById(Long id,HttpServletResponse response){
+    public ResultSet selectUserById(Long id){
         ResultSet resultSet = new ResultSet();
-        response.setHeader("Access-Control-Allow-Origin", "*");
         try {
             MultiValueMap<Object,Object> map = new LinkedMultiValueMap<>();
             map.add("id",id);
